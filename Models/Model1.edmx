@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Users" EntityType="Model1.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bookings" EntityType="Model1.Store.Bookings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FeedBacks" EntityType="Model1.Store.FeedBacks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Restaurants" EntityType="Model1.Store.Restaurants" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserBooking" Association="Model1.Store.UserBooking">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="BookingFeedBack" Association="Model1.Store.BookingFeedBack">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="FeedBack" EntitySet="FeedBacks" />
+    </AssociationSet>
+    <AssociationSet Name="BookingRestaurant" Association="Model1.Store.BookingRestaurant">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="Restaurant" EntitySet="Restaurants" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone_No" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Booking_Time" Type="datetime" Nullable="false" />
+    <Property Name="NofCustomer" Type="int" Nullable="false" />
+    <Property Name="UserId1" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FeedBacks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Rate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BookingId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurants">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone_No" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Latitude" Type="float" Nullable="false" />
+    <Property Name="Longitude" Type="float" Nullable="false" />
+    <Property Name="BookingId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserBooking">
+    <End Role="User" Type="Model1.Store.Users" Multiplicity="1" />
+    <End Role="Booking" Type="Model1.Store.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingFeedBack">
+    <End Role="Booking" Type="Model1.Store.Bookings" Multiplicity="1" />
+    <End Role="FeedBack" Type="Model1.Store.FeedBacks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingRestaurant">
+    <End Role="Booking" Type="Model1.Store.Bookings" Multiplicity="1" />
+    <End Role="Restaurant" Type="Model1.Store.Restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Restaurant">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Model1.User" />
+          <EntitySet Name="Bookings" EntityType="Model1.Booking" />
+          <EntitySet Name="FeedBacks" EntityType="Model1.FeedBack" />
+          <EntitySet Name="Restaurants" EntityType="Model1.Restaurant" />
+          <AssociationSet Name="UserBooking" Association="Model1.UserBooking">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="BookingFeedBack" Association="Model1.BookingFeedBack">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="FeedBack" EntitySet="FeedBacks" />
+          </AssociationSet>
+          <AssociationSet Name="BookingRestaurant" Association="Model1.BookingRestaurant">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Restaurant" EntitySet="Restaurants" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Model1.UserBooking" FromRole="User" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" Nullable="false" />
+          <Property Name="Phone_No" Type="String" Nullable="false" />
+          <Property Name="Booking_Time" Type="DateTime" Nullable="false" />
+          <Property Name="NofCustomer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model1.UserBooking" FromRole="Booking" ToRole="User" />
+          <Property Name="UserId1" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FeedBacks" Relationship="Model1.BookingFeedBack" FromRole="Booking" ToRole="FeedBack" />
+          <NavigationProperty Name="Restaurants" Relationship="Model1.BookingRestaurant" FromRole="Booking" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Rate" Type="String" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Model1.BookingFeedBack" FromRole="FeedBack" ToRole="Booking" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Telephone_No" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Model1.BookingRestaurant" FromRole="Restaurant" ToRole="Booking" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserBooking">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="UserId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingFeedBack">
+          <End Type="Model1.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="Model1.FeedBack" Role="FeedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FeedBack">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingRestaurant">
+          <End Type="Model1.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="Model1.Restaurant" Role="Restaurant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Restaurant">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Booking)">
+        <MappingFragment StoreEntitySet="Bookings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Phone_No" ColumnName="Phone_No" />
+          <ScalarProperty Name="Booking_Time" ColumnName="Booking_Time" />
+          <ScalarProperty Name="NofCustomer" ColumnName="NofCustomer" />
+          <ScalarProperty Name="UserId1" ColumnName="UserId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedBacks">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.FeedBack)">
+        <MappingFragment StoreEntitySet="FeedBacks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Restaurants">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Restaurant)">
+        <MappingFragment StoreEntitySet="Restaurants">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Telephone_No" ColumnName="Telephone_No" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

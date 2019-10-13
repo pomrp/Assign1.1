@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="Model1.User" />
+    <EntitySet Name="Bookings" EntityType="Model1.Booking" />
+    <EntitySet Name="FeedBacks" EntityType="Model1.FeedBack" />
+    <EntitySet Name="Restaurants" EntityType="Model1.Restaurant" />
+    <AssociationSet Name="UserBooking" Association="Model1.UserBooking">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="BookingFeedBack" Association="Model1.BookingFeedBack">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="FeedBack" EntitySet="FeedBacks" />
+    </AssociationSet>
+    <AssociationSet Name="BookingRestaurant" Association="Model1.BookingRestaurant">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="Restaurant" EntitySet="Restaurants" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <NavigationProperty Name="Bookings" Relationship="Model1.UserBooking" FromRole="User" ToRole="Booking" />
+  </EntityType>
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" Nullable="false" />
+    <Property Name="Phone_No" Type="String" Nullable="false" />
+    <Property Name="Booking_Time" Type="DateTime" Nullable="false" />
+    <Property Name="NofCustomer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Model1.UserBooking" FromRole="Booking" ToRole="User" />
+    <Property Name="UserId1" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FeedBacks" Relationship="Model1.BookingFeedBack" FromRole="Booking" ToRole="FeedBack" />
+    <NavigationProperty Name="Restaurants" Relationship="Model1.BookingRestaurant" FromRole="Booking" ToRole="Restaurant" />
+  </EntityType>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <Property Name="Rate" Type="String" Nullable="false" />
+    <NavigationProperty Name="Booking" Relationship="Model1.BookingFeedBack" FromRole="FeedBack" ToRole="Booking" />
+    <Property Name="BookingId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Telephone_No" Type="String" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="Latitude" Type="Double" Nullable="false" />
+    <Property Name="Longitude" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Booking" Relationship="Model1.BookingRestaurant" FromRole="Restaurant" ToRole="Booking" />
+    <Property Name="BookingId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="UserBooking">
+    <End Type="Model1.User" Role="User" Multiplicity="1" />
+    <End Type="Model1.Booking" Role="Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="UserId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingFeedBack">
+    <End Type="Model1.Booking" Role="Booking" Multiplicity="1" />
+    <End Type="Model1.FeedBack" Role="FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingRestaurant">
+    <End Type="Model1.Booking" Role="Booking" Multiplicity="1" />
+    <End Type="Model1.Restaurant" Role="Restaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Restaurant">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
