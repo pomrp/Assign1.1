@@ -11,11 +11,14 @@ namespace Assign1._1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Restaurant
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [Required]
+        [Phone (ErrorMessage ="Please input vaild phone number")]
         public string Telephone_No { get; set; }
         public string Address { get; set; }
         public double Latitude { get; set; }

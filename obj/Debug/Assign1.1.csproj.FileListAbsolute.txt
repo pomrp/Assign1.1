@@ -103,3 +103,6 @@ E:\莫纳什\T2\FIT5032\Assign1.1\obj\Debug\Assign1.1.csproj.CopyComplete
 E:\莫纳什\T2\FIT5032\Assign1.1\obj\Debug\Assign1.1.dll
 E:\莫纳什\T2\FIT5032\Assign1.1\obj\Debug\Assign1.1.pdb
 E:\莫纳什\T2\FIT5032\Assign1.1\obj\Debug\Assign1.1.csprojAssemblyReference.cache
+E:\莫纳什\T2\FIT5032\Assign1.1\bin\SendGrid.dll
+E:\莫纳什\T2\FIT5032\Assign1.1\bin\SendGrid.pdb
+E:\莫纳什\T2\FIT5032\Assign1.1\bin\SendGrid.xml

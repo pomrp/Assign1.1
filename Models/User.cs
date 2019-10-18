@@ -11,7 +11,8 @@ namespace Assign1._1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,19 @@ namespace Assign1._1.Models
         }
     
         public int Id { get; set; }
+        [Required]
+        
+        [Display(Name = "First Name")]
+        [StringLength(20,MinimumLength =2,ErrorMessage = "Name length can't be more than 20 and less than 2")]
         public string FirstName { get; set; }
+        [Required]
+
+        [Display(Name = "Last Name")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Name length can't be more than 20 and less than 2")]
         public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Email")]   
+        [EmailAddress (ErrorMessage = "Please input vaild email")]
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

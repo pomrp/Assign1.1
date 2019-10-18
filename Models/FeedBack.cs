@@ -20,8 +20,10 @@ namespace Assign1._1.Models
         [Required]
         [AllowHtml]
         public string Content { get; set; }
-        public System.DateTime Date { get; set; }
+        [Required]
+        [Range (0,5,ErrorMessage ="rate cant over 5 and less than 0") ]
         public string Rate { get; set; }
+        public System.DateTime Date { get; set; }
         public int BookingId { get; set; }
     
         public virtual Booking Booking { get; set; }

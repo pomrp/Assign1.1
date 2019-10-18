@@ -11,7 +11,8 @@ namespace Assign1._1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Booking
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,8 +24,12 @@ namespace Assign1._1.Models
     
         public int Id { get; set; }
         public string UserID { get; set; }
+        [Required]
+        [Phone (ErrorMessage ="please input vaild phone number")]
         public string Phone_No { get; set; }
         public System.DateTime Booking_Time { get; set; }
+        [Required]
+        [Range (1,20,ErrorMessage ="customer can't more than 20 people and less than 1") ]
         public int NofCustomer { get; set; }
         public int UserId1 { get; set; }
     
